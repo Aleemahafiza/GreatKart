@@ -1,0 +1,76 @@
+{% extends "../adminbase/admin-base.html" %}
+
+{% block page_content%} 
+
+<main class="col-md-12 mt-4">
+    <article class="card  table-head-bg-primary">
+    <header class="card-header">
+        <strong class="d-inline-block mr-3">Order ID:{{ orders.order_number }}</strong>
+        <span>Order Date: {{ orders.created_at }}</span>
+    </header>
+    <div class="card-body">
+        <div class="row"> 
+            <div class="col-md-8">
+                <h6 class="text-muted">Delivery to</h6>
+                <p>{{ orders.address.full_name }}<br>  
+                 <b>Phone: </b>{{ orders.address.phone }}<br>
+                <b>Email: </b>{{ orders.address.email}} <br>
+                <b>Location:</b> {{ orders.address.full_address }} <br> <b>State:</b> {{ orders.address.state }},  <b>City: </b>{{ orders.address.city }},<br> 
+                 </p>
+            </div>
+            <div class="col-md-4">
+                <h6 class="text-muted">Payment</h6>
+                {% if orders.payment.payment_method != 'Paypal' %}
+                <p>Payment method: Cash On Delivery <br>
+                
+                {% else %}
+                <p>Payment method: {{ orders.payment.payment_method }} <br>
+                {% endif %}
+                    <b> Subtotal: </b>${{ subtotal}} <br>
+                    <b> Tax:   </b>${{ orders.tax }} <br> 
+
+                    {% if cart.coupon %}
+                    <b> Coupon Discount:  </b> <span class ='text-danger'>-${{ cart.coupon.discount_price }}</span> <br> 
+                    {% endif %}
+                    
+
+                 <span class="b"> <b>Total:</b> ${{ orders.order_total }} </span>
+                </p>
+            </div>
+        </div> <!-- row.// -->
+    </div> <!-- card-body .// -->
+    <div class="table-responsive">
+    <table class="table table-hover">
+        
+        {% for item in order_product %}
+        <tr>
+            <td width="65">
+                <img src="{{ item.product.image.url }}" class="img-xs border p-1"  width="65">
+            </td>
+            <td> 
+                <p class="title mb-0">{{ item.product.product_name }} </p>
+                <var class="price text-muted">
+                    <p class="text-muted small">
+                        {% if item.variations.all %}
+                            {% for i in item.variations.all %}
+                                {{ i.variation_category | capfirst }} : {{ i.variation_value | capfirst }} <br>
+                            {% endfor %}
+                        {% endif %}
+                    </p> 
+                </var>
+            </td>
+            <td> quantity <br>{{ item.quantity }} </td>
+            <td> price <br>{{ item.product.price }} </td>
+        </tr>
+        {% endfor %}
+      
+    </table>
+    </div> <!-- table-responsive .end// -->
+    </article> <!-- order-group.// --> 
+</main>
+
+
+
+
+
+{% endblock page_content%} 

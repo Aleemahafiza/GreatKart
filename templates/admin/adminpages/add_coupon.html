@@ -1,0 +1,55 @@
+{% extends "../adminbase/admin-base.html" %}
+
+{% block page_content %} 
+
+<div class="container-fluid">
+    {% include "includes/alerts.html" %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <div class="card-title">Add Coupon</div>
+                    <hr>
+                <div class="card-body">
+                    <form action="" method='POST' >
+                        {% csrf_token %}
+                        <div class="form-group from-show-notify row">
+                            <div class="col-lg-3 col-md-3 col-sm-12 text-right">
+                                <label for="product_name">Coupon code:</label>
+                            </div>
+                            <div class="col-lg-6 col-md-9 col-sm-12">
+                                <input type="text" class="form-control" Required name="coupon_code">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-md-3 col-sm-12 text-right">
+                                <label for="slug">Discount:</label>
+                            </div>
+                            <div class="col-lg-6 col-md-9 col-sm-12">
+                                <input type="nuber" class="form-control" Required name="discount">
+                            </div>
+                        </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-md-3 col-sm-12 text-right">
+                                <label for="slug">Minimum amount:</label>
+                            </div>
+                            <div class="col-lg-6 col-md-9 col-sm-12">
+                                <input type="nuber" class="form-control" Required name="minimum_amount">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-9 col-sm-12">
+                            <button type='submit' class="btn btn-primary">Save</button>
+                        </div>
+                        
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock page_content %} 

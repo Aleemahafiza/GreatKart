@@ -1,0 +1,57 @@
+{% extends "../adminbase/admin-base.html" %}
+{% load static %}
+
+{% block title %}
+Top 10 Best Selling Categories
+{% endblock title %}
+
+{% block add %}
+{% endblock add %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block page_title %}
+<h2>Top 10 Best Selling Categories</h2>
+{% endblock page_title %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="search-element">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get">
+                        <button class="btn btn-primary" type="submit" style="float:right"><i class="fas fa-search"></i> Search</button>
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250" style="width: 250px; float:right" name="filter" value="{{ filter }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><br>
+
+<b>Top 10 Categories:</b><br><br>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            {% for category, total_quantity in top_categories %}
+            <div class="col-lg-3">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <h class="m-0 font-weight-bold text-primary">{{ category.category_name }}</h>
+                        <br>
+                        <h class ='text-danger'>Total Quantity: {{ total_quantity }}</h><br><br>
+                        <!-- You can add more information here if needed -->
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

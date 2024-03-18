@@ -1,0 +1,127 @@
+{% extends "../adminbase/admin-base.html" %}
+{% load static %}
+
+{% block title%}
+Product List
+{% endblock title%}
+
+{% block add %}
+<a href="{% url "product_create" %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+    Add Product+
+</a>
+{% endblock add %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+
+
+{% block page_title %}
+Product List
+{% endblock page_title %}
+
+{% block page_content %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="search-element">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get">
+                        <button class="btn btn-primary" type="submit" style="float:right"><i class="fas fa-search"></i> Search</button>
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250" style="width: 250px; float:right" name="filter" value="{{ filter }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><br>
+
+<div class="row">
+    {% for product in product_list %}
+    <div class="col-lg-3">
+        <!-- Basic Card Example -->
+        <div class="card shadow mb-4">
+            <div>
+                <img src="{{ product.image.url }}" class="img-thumbnail" alt="...">
+            </div>
+            <div class="card-body">
+                <h6 class="m-0 font-weight-bold text-primary">{{ product.product_name }}</h6>
+                <br>
+                <h class="text-danger">Price: ${{ product.price }}</h> <br>
+                <h> <b class='text-dark'>Slug:</b> {{ product.slug }}</h> <br>
+                <h> <b class='text-dark'>Stock: </b>{{ product.stock }}</h> <br> <br>
+                <div>
+                    <a href="{% url "product_update" product.id %}" class="btn btn-primary btn-sm">EDIT <i class="fas fa-chevron-right"></i></a>
+                    <a href="{% url "deleteproduct" product.id %}" class="btn btn-danger btn-sm">DELETE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <!-- Pagination Code Here -->
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{% url 'product_list' %}?filter={{filter}}&orderby={{orderby}}&page={{page_obj.previous_page_number}}" tabindex="-1">Previous</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                    </li>
+                                {% endif %}
+                                {% for i in paginator.page_range %}
+                                    <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+                                        <a class="page-link" href="{% url 'product_list' %}?filter={{filter}}&orderby={{orderby}}&page={{i}}">{{i}}</a>
+                                    </li>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="{% url 'product_list' %}?filter={{filter}}&orderby={{orderby}}&page={{page_obj.next_page_number}}" tabindex="-1">Next</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Next</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

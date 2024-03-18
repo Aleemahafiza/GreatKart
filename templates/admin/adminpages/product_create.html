@@ -1,0 +1,161 @@
+{% extends "../adminbase/admin-base.html" %}
+{% comment %} {% extends "../adminbase/admin-base.html" %} {% endcomment %}
+{% load static %}
+
+{% block title%}
+Product Create
+{%endblock title%}
+
+{%block add%}
+
+{%endblock add%}
+
+{%block custom_css%}
+{%endblock custom_css%}
+
+{%block page_title%}
+Product Create
+{%endblock page_title%}
+
+{% block page_content%} 
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <lable>ProductName</lable>
+                        <input class="form-control" name="product_name" placeholder="ProductName" id="category_name">
+                    </div>
+                    <div class="col-lg-6">
+                        <lable>Slug</lable>
+                        <input class="form-control" name="slug" placeholder="slug" id="slug">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <lable>Category</lable>
+                        <select name="category" class="form-control">
+                            {% for category in categories %}
+                                <optgroup>
+                                    <option value="{{ category.category.id }}">{{ category.category.category_name }}</option>
+                                </optgroup>
+                            {% endfor %}
+                        </select>
+                          
+                    </div>
+                    <div class="col-lg-6">
+                        <lable>Price</lable>
+                        <input class="form-control" name="price" placeholder="price">
+                    </div>
+                </div>
+                <br>
+                
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <lable>Stock</lable>
+                        <input class="form-control" name="stock" placeholder="stock">
+                    </div>
+                   
+                    <div class="col-lg-6">
+                        <lable>Image</lable>
+                        <input type="file" name="image" placeholder="image" class="form-control">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <lable>Description</lable>
+                        <textarea class="form-control" name="description" rows='4' id="description"></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">SAVE Product</button>
+                    </div>
+
+            </div>
+        </form>
+        
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+
+{% endblock page_content%} 
+
+{%block custom_js%}
+{%endblock custom_js%}
+
+
+{% comment %} 
+{% block title%}
+Product Create
+{%endblock title%}
+
+{%block custom_css%}
+{%endblock custom_css%}
+
+{% block page_title %} 
+Product Create
+{% endblock page_title %}
+
+
+{% block page_content%} 
+<div class="row">
+<div class="col-12 col-md-12 col-lg-12">
+<div class="card">
+      <div class="card-header">
+    <h4>Products</h4>
+    </div>
+    <div class="card-body">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+           <label>{{field.label}}</label>
+           <input type="{{field.field.widget.input_type}}" name={{field.name}} id= "{{field.name}}" class="form-control">
+           {% if field.errors %}
+           <div class="alert alert-danger" style= "margin:10px">
+            {{field.errors}}
+           </div>
+           {%endif%}
+        </div>
+        {% endfor %} {% endcomment %}
+
+        {% comment %} <br>
+            <div class="col-lg-6">
+                <label>Category</label>
+                <select name="category" class="form-control">
+                        {% for category in categories %}
+                            <optgroup label={{category.category.category_name}}>
+                                <option value="{{ category.category.name }}">{{ category.category.category_name }}</option>
+                            </optgroup>
+                        {% endfor %}
+                </select>
+            </div>
+         {% endcomment %}
+{% comment %}         
+        <br>
+        <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">SAVE PRODUCT</button>
+        </div>
+    
+    </form>
+</div>
+</div>
+</div>
+
+
+{% endblock page_content%} 
+
+{%block custom_js%}
+{%endblock custom_js%} {% endcomment %}

@@ -1,0 +1,47 @@
+{% extends "../adminbase/admin-base.html" %}
+
+{% block page_content %} 
+<div class="ml-5">
+    <div class="row ">
+        <div class="col float-left">
+            <h3>Coupons</h3>
+        </div>
+        <div class="col float-right m-4">
+            <a href="{% url 'add_coupon' %}"><button type='submit' class="btn btn-primary float-right ">Add Coupon</button></a>
+        </div>
+    </div>
+</div> 
+<div class="col">
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-head-bg-primary table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Coupon code</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Minimum amount</th>
+                        <th scope="col">Is expired</th>
+                        <th scope="col">Change Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for coupon in coupons %}
+                    <tr>
+                        <td><a href="{% url 'edit_coupon' pk=coupon.pk %}">{{ coupon.coupon_code }}</a></td>
+                        <td>{{ coupon.discount_price }}</td>
+                        <td>{{ coupon.minimum_amount }}</td>
+                        <td>{{ coupon.is_expired }}</td>
+                        {% if  coupon.is_expired %}
+                        <td><a href="{%url 'undelete_coupon' pk=coupon.pk %}" class="btn btn-primary btn-sm">Active </a></td>
+                        {% else %}
+                        <td><a href="{%url 'delete_coupon' pk=coupon.pk %}" class="btn btn-danger btn-sm">Inactive </a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock page_content %} 
