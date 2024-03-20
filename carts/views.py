@@ -59,7 +59,6 @@ def add_cart(request, product_id):
                 # If the item already exists with the same variations, increase the quantity
                 cart_item.quantity += 1
                 cart_item.save()
-                print("Product quantity increased in cart:", product)
                 return redirect("cart")
 
         # If no matching item found, create a new cart item and associate it with the cart
@@ -68,7 +67,6 @@ def add_cart(request, product_id):
         )
         cart_item.variations.set(product_variation)
         cart_item.save()
-        print("Product added to cart:", product)
         return redirect("cart")
     # If the user is not authenticated
     else:
